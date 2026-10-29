@@ -57,14 +57,20 @@ fbmod-pack.cmd legacy C:\work\edited --out MyUiMod.fbmod --title "My UI Mod"
 
 ## How I've used it
 
-**1. Press Box: a passing test on a design nobody could use.** Press Box (play, coach or watch any CPU-vs-CPU dynasty game) first exposed its games through a hidden hub item with a numbered chooser of 25 to 33 entries. The runner's routes (take a game, play it, watch it, advance weeks) all passed. The captures showed entries 1 to 5 drawn above the top of the screen, and the flow made no sense to anyone who hadn't built it. A route passing isn't the same as a player finding it, so Press Box moved to the game's own Scores / Schedules screen: pick a game, it becomes a hub card. Test reviews now also ask whether a player would find it, in the game's own wording.
+**1. Weekly Strategy: building new practice screens from a direction, not a spec.** The game has a weekly strategy / training screen that dynasty never turns on. Its dynasty data hooks are stubs that return nothing.
+- **Who does what:** I point at what the screen should do: the opponent's season numbers, player health on its own page, focus players who get extra practice XP, weekly goals. I add a rough idea of how, Claude runs with it, and the reverse engineering and the build come back to me.
+- **What got built:** a small plugin that fills the screen's data slots from the dynasty (tiles, opponent stats, health, goals), expression hooks for focus XP and goals, and UI mods that rewire the screen.
+- **Where the runner fits:** every build gets a short scripted pass: load the test dynasty, open the screen, check each panel, advance a week, save. The screenshots come back for review, so I'm looking at the new screen instead of launching the game myself.
+- **What it caught that offline checks couldn't:**
+  - START TRAINING opened the drill screen with an empty list, because the drills only fill for a Road to Glory player.
+  - The first entry point was the R3 button, where nobody would press it, so it moved to View.
 
-**2. Blind row counts overwrote a real save, which became the guard and `saveRow`.** A save route pressed "down 2" to reach the test dynasty. One night another save had been written, the list re-ordered by mtime, "down 2" landed on a real dynasty's autosave, and the overwrite prompt got a Yes. The fix went into the tool rather than into "be careful": fingerprint and back up every other save, re-check continuously, stop on change, read the highlighted row and never count. The same day a title update landed. The runner hit the Mod Manager's "SDK out of date" dialog and stopped every launch instead of pushing on, and that rule became the `layout.toc` / PE-timestamp check.
-
-**3. Focus, test length and admin: three snags that shaped the defaults.**
+**2. Focus, test length and admin: three snags that shaped the defaults.**
 - A probe run showed the pad is ignored while another window has focus (the menu didn't move). That became Background Pad, and the next probe passed with input landing while unfocused.
-- A planned test batch came out around 10 hours because every test played full games. Scoping each test to what the change touched (one take, one drive, one advance, quit without saving) brought it to about an hour.
+- A planned test batch came out around 10 hours because every test played full games. Scoping each test to what the change touched (one take, one snap, quit without saving, the same card again for the next case) brought it to about an hour.
 - A tester got "Access to a file or directory is denied" while creating ModData. Some Mod Manager builds require admin in their manifest, so `doctor` now reads the manifest and the compatibility flags and points at the broker.
+
+**3. Press Box: correct and learn while building.** Press Box (play, coach or watch any CPU-vs-CPU dynasty game) first exposed its games through a hidden hub item with a numbered chooser of 25 to 33 entries. The runner's routes (take a game, play it, watch it, advance weeks) all passed. The captures showed entries 1 to 5 drawn above the top of the screen, and the flow made no sense to anyone who hadn't built it. A route passing isn't the same as a player finding it, so Press Box moved to the game's own Scores / Schedules screen: pick a game, it becomes a hub card. Test reviews now also ask whether a player would find it, in the game's own wording.
 
 ## Status
 
