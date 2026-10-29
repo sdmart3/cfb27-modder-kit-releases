@@ -24,16 +24,16 @@ Download: **[latest release](https://github.com/sdmart3/cfb27-modder-kit-release
 - **Stall watchdog:** if nothing on screen changes for 3 minutes outside an explicit wait, the run stops with a picture and the last step.
 - **Admin:** the Mod Manager's manifest asks for `requireAdministrator`, and an unattended run can't answer UAC. `install-broker` registers two scheduled tasks (`\CFB Test Runner\Launch` / `Stop`) plus a script in admin-only `C:\ProgramData\CFBTestRunner`. They can only start the Mod Manager with the `Runner` pack, and only close processes they started (checked by PID, name and start time). `doctor` reports whether your Mod Manager needs it: compatibility flag or manifest.
 
-## Save safety (new in 0.3)
+## Save safety
 
 - **Guard:** before each launch, every file in the saves folder except the declared test save (and its `-AUTOSAVE`) is fingerprinted (name, size, mtime, MD5) and copied to `%LOCALAPPDATA%\cfb-test-runner\save-backups\_guard\<run>\`, outside the saves folder. It re-checks every 5 s, after every A press and at the end. Any change stops the run (exit code 3) and keeps a copy of the changed file. `guard-restore` puts a backup back.
 - **`saveRow`:** save routes no longer count rows. The save list re-orders by modified date, so "down 2" lands on a different dynasty whenever any save is written. `saveRow` presses down and classifies the highlighted row against `save-ref` pictures of your test save, and any A press on a save list or overwrite prompt is screen-checked first (it presses B if the row isn't yours).
 
-## After a game update (new in 0.3)
+## After a game update
 
 `calibrate` records the build: a hash of `Data\layout.toc` plus the exe's PE timestamp. If either changes, `doctor` fails and `run` refuses, because menu counts and screens may have moved. Start the Mod Manager once so it rebuilds its cache, then `calibrate --redo`, do one attended run, and `game-version record`. `--ignore-game-update` overrides for one run. For the pack kit, run `fbmod-pack.cmd index` again after the Mod Manager refresh.
 
-## Shared mode and Background Pad (default in 0.3)
+## Shared mode and Background Pad
 
 The game ignores a virtual pad while another window has focus, so you couldn't use the PC during a run. **Background Pad** is an optional Mod Manager plugin (`BackgroundPadPlugin.dll` loads `backgroundpad.dll` into the game). It swallows the game's focus-loss messages, answers its foreground-window queries with the game window, and keeps its handler in front of the game's own. A keyboard guard also stops the game reading keyboard and mouse while another window is in front. Controllers are untouched.
 
