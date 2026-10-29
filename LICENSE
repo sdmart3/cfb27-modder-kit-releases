@@ -1,0 +1,24 @@
+CFB 27 Modder Kit - community licence
+
+Copyright (c) 2026 the author. All rights reserved except as stated here.
+
+You may:
+  - use this kit for free, on your own computer, for testing and building College Football 27 mods;
+  - share it for free, unmodified and complete (this LICENSE and the NOTICE file included), with other people in the College Football
+    modding community;
+  - make private changes for your own use.
+
+You may not:
+  - sell it, or any part of it, alone or bundled with anything else, or charge for access to it or to anything made with it that contains
+    it;
+  - share changed copies of it, or pass it off as your own work;
+  - include it in another package or product.
+
+This covers everything in the kit: the test runner, the .fbmod pack kit (pack-kit/), the optional Background Pad add-on, every route,
+script and document. Third-party parts keep their own licences (see NOTICE; the small zstd decoder in pack-kit/lib/vendor/fzstd has its
+own LICENSE file).
+
+NO WARRANTY. THE KIT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. It launches and drives a game, backs up and restores files, can
+install a plugin into your Mod Manager's folder (only when you say yes) that is then loaded into the game process, and writes mod files. You
+use it at your own risk and are responsible for your saves, your Mod Manager setup and your game installation. The author is not liable for
+any damage, data loss, game bans, crashes or other consequences of using it.
